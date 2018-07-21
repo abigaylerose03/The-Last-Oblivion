@@ -283,6 +283,26 @@ public class Play extends BasicGameState implements Movement {
 		}
 	}
 	
+	/* deals with AI movement */
+	public int chooseRandomDirection() {
+		Random r = new Random();
+		int[] randDirections = new int[3];
+		randDirections[0] = 0;
+		randDirections[1] = 1;
+		randDirections[2] = 2;
+
+		int randChoice = r.nextInt(3);
+		return randDirections[randChoice];
+
+	}
+
+	public void setXDirection(int dir) {
+		xDirection = dir;
+	}
+
+	public void setYDirection(int dir) {
+		yDirection = dir;
+	}
 	
 	@Override
 	public int getID() {
