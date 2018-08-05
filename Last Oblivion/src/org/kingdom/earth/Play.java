@@ -1,11 +1,11 @@
 package org.kingdom.earth;
 
+import java.util.Random;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-import javagame.Movement;
-
-public class Play extends BasicGameState implements Movement {
+public class Play extends BasicGameState {
 	
 	Animation hero, heroUp, heroUp2, 
 	heroDown, heroDown2, 
@@ -27,6 +27,8 @@ public class Play extends BasicGameState implements Movement {
 	float shiftY = heroPosY + 350;
 	
 	Image worldMap;
+	
+	int xDirection, yDirection;
 	
 	public Play(int state) {}
 	
