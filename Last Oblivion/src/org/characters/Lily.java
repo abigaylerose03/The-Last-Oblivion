@@ -2,11 +2,17 @@ package org.characters;
 
 import java.util.Random;
 
+import org.kingdom.earth.Play;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Lily extends BasicGameState {
 	
+	public Lily(int state) {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	static Animation lily;
 	
 	static Animation lilyUp;
@@ -33,11 +39,6 @@ public class Lily extends BasicGameState {
 
 	float lilyShiftX = lilyPosX + 420;
 	float lilyShiftY = lilyPosY + 350;
-
-	public Lily(int state) {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -136,7 +137,8 @@ public class Lily extends BasicGameState {
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 9374689;
 	}
+
 	
 }

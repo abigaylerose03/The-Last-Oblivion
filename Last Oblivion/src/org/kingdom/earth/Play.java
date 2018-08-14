@@ -11,7 +11,7 @@ public class Play extends BasicGameState {
 
 	Animation hero, heroUp, heroUp2, heroDown, heroDown2, heroLeft, heroLeft2, heroRight, heroRight2;
 
-	static Animation lily;
+    static Animation lily;
 	
 	static Animation lilyUp;
 
@@ -27,7 +27,7 @@ public class Play extends BasicGameState {
 
 	static Animation lilyRight;
 
-	Animation lilyRight2;
+	Animation lilyRight2; 
 
 	boolean move, move2, move3, move4 = true; // the move variables define each movement of the sprite
 												// true: can move legs/arms
@@ -101,7 +101,7 @@ public class Play extends BasicGameState {
 
 		hero = heroDown;
 
-		/* Lily animations */
+	    /* Lily animations */
 		lilyUp = new Animation(walkUpLily, duration, false);
 		lilyUp2 = new Animation(walkUpLily2, duration, false);
 
@@ -379,9 +379,6 @@ public class Play extends BasicGameState {
 			hero = heroDown;
 		}
 	}
-
-	/* deals with AI movement */
-
 	
 	@Override
 	public int getID() {
