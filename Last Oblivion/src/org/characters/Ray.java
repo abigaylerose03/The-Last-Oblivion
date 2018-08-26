@@ -1,33 +1,11 @@
-package org.kingdom.earth;
-
-import org.characters.Lily;
-
-import java.util.Random;
+package org.characters;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class Play extends BasicGameState {
-
-	Animation hero, heroUp, heroUp2, heroDown, heroDown2, heroLeft, heroLeft2, heroRight, heroRight2;
-
-    static Animation lily;
+public class Ray {
 	
-	static Animation lilyUp;
-
-	Animation lilyUp2;
-
-	static Animation lilyDown;
-
-	Animation lilyDown2;
-
-	static Animation lilyLeft;
-
-	Animation lilyLeft2;
-
-	static Animation lilyRight;
-
-	Animation lilyRight2; 
+	Animation hero, heroUp, heroUp2, heroDown, heroDown2, heroLeft, heroLeft2, heroRight, heroRight2;
 
 	boolean move, move2, move3, move4 = true; // the move variables define each movement of the sprite
 												// true: can move legs/arms
@@ -36,28 +14,14 @@ public class Play extends BasicGameState {
 	int[] duration = { 200, 200 };
 	static long prevTurn = System.currentTimeMillis();
 
-	float heroPosX = -110;
-	float heroPosY = -100;
+	public float heroPosX = -110;
+	public float heroPosY = -100;
 	
-	float shiftX = heroPosX + 320;
-	float shiftY = heroPosY + 350;
-	
+	public float shiftX = heroPosX + 320;
+	public float shiftY = heroPosY + 350;
 
-	float lilyPosX = -120;
-	float lilyPosY = -110;
-
-	float lilyShiftX = lilyPosX + 420;
-	float lilyShiftY = lilyPosY + 350;
-
-	Image worldMap;
-
-	public Play(int state) {
-	}
-
-	@Override
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		worldMap = new Image("res/earthKingdom.png");
-
+	public Ray() throws SlickException {
+		
 		Image[] walkUp = { new Image("res/characters/heroBack.png"), new Image("res/characters/heroBack.png") };
 		Image[] walkUp2 = { new Image("res/characters/heroBack2.png"), new Image("res/characters/heroBack2.png") };
 
@@ -69,23 +33,6 @@ public class Play extends BasicGameState {
 
 		Image[] walkRight = { new Image("res/characters/heroRight.png"), new Image("res/characters/heroRight.png") };
 		Image[] walkRight2 = { new Image("res/characters/heroRight2.png"), new Image("res/characters/heroRight2.png") };
-
-		/* Lily character images */
-		Image[] walkUpLily = { new Image("res/characters/lilyBack.png"), new Image("res/characters/lilyBack.png") };
-		Image[] walkUpLily2 = { new Image("res/characters/lilyBack2.png"), new Image("res/characters/lilyBack2.png") };
-
-		Image[] walkDownLily = { new Image("res/characters/lilyFront.png"), new Image("res/characters/lilyFront.png") };
-		Image[] walkDownLily2 = { new Image("res/characters/lilyFront2.png"),
-				new Image("res/characters/lilyFront2.png") };
-
-		Image[] walkLeftLily = { new Image("res/characters/lilyLeft.png"), new Image("res/characters/lilyLeft.png") };
-		Image[] walkLeftLily2 = { new Image("res/characters/lilyLeft2.png"),
-				new Image("res/characters/lilyLeft2.png") };
-
-		Image[] walkRightLily = { new Image("res/characters/lilyRight.png"),
-				new Image("res/characters/lilyRight.png") };
-		Image[] walkRightLily2 = { new Image("res/characters/lilyRight2.png"),
-				new Image("res/characters/lilyRight2.png") };
 
 		heroUp = new Animation(walkUp, duration, false);
 		heroUp2 = new Animation(walkUp2, duration, false);
@@ -100,84 +47,14 @@ public class Play extends BasicGameState {
 		heroRight2 = new Animation(walkRight2, duration, false);
 
 		hero = heroDown;
-
-	    /* Lily animations */
-		lilyUp = new Animation(walkUpLily, duration, false);
-		lilyUp2 = new Animation(walkUpLily2, duration, false);
-
-		lilyDown = new Animation(walkDownLily, duration, false);
-		lilyDown2 = new Animation(walkDownLily2, duration, false);
-
-		lilyLeft = new Animation(walkLeftLily, duration, false);
-		lilyLeft2 = new Animation(walkLeftLily2, duration, false);
-
-		lilyRight = new Animation(walkRightLily, duration, false);
-		lilyRight2 = new Animation(walkRightLily2, duration, false);
-
-		lily = lilyDown;
-		
-
 	}
-
-	@Override
+	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		worldMap.draw(heroPosX, heroPosY);
 		hero.draw(shiftX, shiftY);
-		
-		lily.draw(lilyShiftX, lilyShiftY);
-		lily.draw(lilyShiftX, lilyShiftY);
-		lily.isStopped();
-		
-		Random r_lily = new Random();
-		int lilyMove = r_lily.nextInt(4);
-		System.out.println(lilyMove);
-		
-		switch(lilyMove) {
-			
-			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 3000) {
-					lily = lilyRight;
-					lily.draw(lilyShiftX, lilyShiftY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 3000) {
-					lily = lilyUp;
-					lily.draw(lilyShiftX, lilyShiftY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 2:
-				if (System.currentTimeMillis() - prevTurn >= 3000) {
-					lily = lilyLeft;
-					lily.draw(lilyShiftX, lilyShiftY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 3:
-				if (System.currentTimeMillis() - prevTurn >= 3000) {
-					lily = lilyDown;
-					lily.draw(lilyShiftX, lilyShiftY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			default:
-				lily = lilyDown;
-				break;
-		} 
-		
-
-		g.drawString("Your x: " + heroPosX + "\nYour y: " + heroPosY, 400, 20);
-
 	}
 
-	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		
 		Input input = gc.getInput();
 
 		/* left movement */
@@ -378,13 +255,9 @@ public class Play extends BasicGameState {
 		if (input.isKeyDown(Input.KEY_M)) {
 			hero = heroDown;
 		}
-	}
 	
-	@Override
-	public int getID() {
-		return 1;
+		
 	}
 
-	public static void main(String[] args) {
-	}
+
 }

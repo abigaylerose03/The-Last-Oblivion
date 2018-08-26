@@ -2,47 +2,22 @@ package org.characters;
 
 import java.util.Random;
 
-import org.kingdom.earth.Play;
+// import org.kingdom.earth.Play;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class Lily extends BasicGameState {
+public class Lily {
 	
-	public Lily(int state) {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	static Animation lily, lilyUp, lilyUp2, lilyDown, lilyDown2, lilyLeft, lilyLeft2, lilyRight, lilyRight2;
 
-	static Animation lily;
-	
-	static Animation lilyUp;
-
-	Animation lilyUp2;
-
-	static Animation lilyDown;
-
-	Animation lilyDown2;
-
-	static Animation lilyLeft;
-
-	Animation lilyLeft2;
-
-	static Animation lilyRight;
-
-	Animation lilyRight2;
-	
 	int[] duration = { 200, 200 };
 	static long prevTurn = System.currentTimeMillis();
 	
-	float lilyPosX = -120;
-	float lilyPosY = -110;
-
-	float lilyShiftX = lilyPosX + 420;
-	float lilyShiftY = lilyPosY + 350;
-
-	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		/* Lily character images */
+	float lilyPosX = -320;
+	float lilyPosY = 200;
+	
+	
+	public Lily() throws SlickException {
 		Image[] walkUpLily = { new Image("res/characters/lilyBack.png"), new Image("res/characters/lilyBack.png") };
 		Image[] walkUpLily2 = { new Image("res/characters/lilyBack2.png"), new Image("res/characters/lilyBack2.png") };
 
@@ -74,14 +49,10 @@ public class Lily extends BasicGameState {
 		lilyRight2 = new Animation(walkRightLily2, duration, false);
 
 		lily = lilyDown;
-		
-		
 	}
 
-	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
-		lily.draw(lilyShiftX, lilyShiftY);
-		// lily.isStopped();
+		lily.draw(lilyPosX, lilyPosY);
 		
 		Random r_lily = new Random();
 		int lilyMove = r_lily.nextInt(4);
@@ -92,7 +63,7 @@ public class Lily extends BasicGameState {
 			case 0:
 				if (System.currentTimeMillis() - prevTurn >= 3000) {
 					lily = lilyRight;
-					lily.draw(lilyShiftX, lilyShiftY);
+					lily.draw(lilyPosX, lilyPosY);
 					prevTurn = System.currentTimeMillis();
 				}
 				break;
@@ -100,7 +71,7 @@ public class Lily extends BasicGameState {
 			case 1:
 				if (System.currentTimeMillis() - prevTurn >= 3000) {
 					lily = lilyUp;
-					lily.draw(lilyShiftX, lilyShiftY);
+					lily.draw(lilyPosX, lilyPosY);
 					prevTurn = System.currentTimeMillis();
 				}
 				break;
@@ -108,7 +79,7 @@ public class Lily extends BasicGameState {
 			case 2:
 				if (System.currentTimeMillis() - prevTurn >= 3000) {
 					lily = lilyLeft;
-					lily.draw(lilyShiftX, lilyShiftY);
+					lily.draw(lilyPosX, lilyPosY);
 					prevTurn = System.currentTimeMillis();
 				}
 				break;
@@ -116,7 +87,7 @@ public class Lily extends BasicGameState {
 			case 3:
 				if (System.currentTimeMillis() - prevTurn >= 3000) {
 					lily = lilyDown;
-					lily.draw(lilyShiftX, lilyShiftY);
+					lily.draw(lilyPosX, lilyPosY);
 					prevTurn = System.currentTimeMillis();
 				}
 				break;
@@ -127,17 +98,17 @@ public class Lily extends BasicGameState {
 		}
 		
 	}
-
-	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
-		// TODO Auto-generated method stub
-		
+	
+	
+	public void setMapOffset(float offsetX, float offsetY) {
+		lilyPosX = offsetX + 420;
+		lilyPosY = offsetY + 390;
 	}
 
-	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 9374689;
+	
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+		
+		
 	}
 
 	

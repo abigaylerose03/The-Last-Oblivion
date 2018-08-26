@@ -2,8 +2,7 @@ package javagame;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
-
-import org.kingdom.earth.Play;
+import org.kingdom.earth.EarthKingdom;
 
 public class Game extends StateBasedGame {
 	
@@ -16,7 +15,7 @@ public class Game extends StateBasedGame {
 	public Game(String gamename) {
 		super(gamename);
 		this.addState(new Menu(mainMenu));// add menu class
-		this.addState(new Play(localMap)); // remember to use enterState(id);
+		this.addState(new EarthKingdom(localMap)); // remember to use enterState(id);
 		// all the names of the different kingdoms
 		// a battle state
 	}
