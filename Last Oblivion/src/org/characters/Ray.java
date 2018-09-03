@@ -3,7 +3,9 @@ package org.characters;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class Ray {
+import javagame.Collidable;
+
+public class Ray implements Collidable {
 	
 	Animation hero, heroUp, heroUp2, heroDown, heroDown2, heroLeft, heroLeft2, heroRight, heroRight2;
 
@@ -51,6 +53,7 @@ public class Ray {
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		hero.draw(shiftX, shiftY);
+		g.drawString("Your x: " + heroPosX + "\nYour y: " + heroPosY, 400, 20);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -255,8 +258,33 @@ public class Ray {
 		if (input.isKeyDown(Input.KEY_M)) {
 			hero = heroDown;
 		}
+		
 	
 		
+	}
+
+	@Override
+	public float getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

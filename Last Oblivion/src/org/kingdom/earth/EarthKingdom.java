@@ -1,7 +1,12 @@
 package org.kingdom.earth;
 
+import java.util.ArrayList;
+
 import org.characters.Lily;
 import org.characters.Ray;
+
+import javagame.Collidable;
+import javagame.CollisionDetector;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -18,11 +23,16 @@ public class EarthKingdom extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		worldMap = new Image("res/earthKingdom.png");
-		
 		lilyObject = new Lily();
 		rayObject = new Ray();
-
+		
+		ArrayList<Collidable> objectsColide = new ArrayList<Collidable>();
+		objectsColide.add(lilyObject);
+		
+		worldMap = new Image("res/earthKingdom.png");
+		
+		ArrayList<Collidable> collisions = CollisionDetector.detectCols(rayObject, objectsColide);
+			
 	}
 
 	@Override
@@ -34,13 +44,13 @@ public class EarthKingdom extends BasicGameState {
 		lilyObject.render(gc, sbg, g);
 		
 		rayObject.render(gc, sbg, g);
-		rayObject.update(gc, sbg, 2);
+
 		
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		
+		rayObject.update(gc, sbg, delta);
 	}
 	
 	@Override

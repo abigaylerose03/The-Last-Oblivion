@@ -6,7 +6,10 @@ import java.util.Random;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class Lily {
+import javagame.Collidable;
+import javagame.Collidable.*;
+
+public class Lily implements Collidable {
 	
 	static Animation lily, lilyUp, lilyUp2, lilyDown, lilyDown2, lilyLeft, lilyLeft2, lilyRight, lilyRight2;
 
@@ -109,6 +112,30 @@ public class Lily {
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		
 		
+	}
+
+	@Override
+	public float getX() {
+		// TODO Auto-generated method stub
+		return lilyPosX;
+	}
+
+	@Override
+	public float getY() {
+		// TODO Auto-generated method stub
+		return lilyPosY;
+	}
+
+	@Override
+	public float getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
