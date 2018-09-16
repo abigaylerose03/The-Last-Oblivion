@@ -1,9 +1,12 @@
 package org.characters;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 import javagame.Collidable;
+import javagame.CollisionDetector;
 
 public class Ray implements Collidable {
 	
@@ -16,11 +19,12 @@ public class Ray implements Collidable {
 	int[] duration = { 200, 200 };
 	static long prevTurn = System.currentTimeMillis();
 
-	public float heroPosX = -110;
-	public float heroPosY = -100;
+	public float bgOffSetX = -110;
+	public float bgOffSetY = -100;
 	
-	public float shiftX = heroPosX + 320;
-	public float shiftY = heroPosY + 350;
+	public float heroPosX = 210;
+	public float heroPosY = 250;
+
 
 	public Ray() throws SlickException {
 		
@@ -49,216 +53,255 @@ public class Ray implements Collidable {
 		heroRight2 = new Animation(walkRight2, duration, false);
 
 		hero = heroDown;
+		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		hero.draw(shiftX, shiftY);
+		hero.draw(heroPosX, heroPosY);
 		g.drawString("Your x: " + heroPosX + "\nYour y: " + heroPosY, 400, 20);
 	}
 
-	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		
+	public void update(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<Collidable> collidables) throws SlickException {
 		Input input = gc.getInput();
+		
+		float currentX = bgOffSetX;
+		float currentY = bgOffSetY;
+		
+		float currentHeroX = heroPosX;
+		float currentHeroY = heroPosY;
 
 		/* left movement */
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			hero = heroLeft2;
-			heroPosX += delta * .1f;
+			bgOffSetX += delta * .1f;
+			heroPosX -= delta * .1f;
 			move = false;
-
-			if (heroPosX > 206) {
-				heroPosX -= delta * .1f;
-			}
-
-			/* tree collision */
-			if (heroPosX > -30 && heroPosY < -198 && heroPosY > -278) {
-				heroPosX -= delta * .1f;
-			}
-
-			if (heroPosX > -424 && heroPosY < -163 && heroPosY > -414) {
-				heroPosX -= delta * .1f;
-			}
-
-			/* castle bushes */
-			if (heroPosX > -78 && heroPosY < -93 && heroPosY > -113) {
-				heroPosX -= delta * .1f;
-			}
-
-			/* cluster of trees */
-			if (heroPosX > -293 && heroPosY < -684 && heroPosY > -714) {
-				heroPosX -= delta * .1f;
-			}
-
-			if (heroPosX > -356 && heroPosY < -563 && heroPosY > -665) {
-				heroPosX -= delta * .1f;
-			}
-
-			if (heroPosX > -4 && heroPosY < -483 && heroPosY > -559) {
-				heroPosX -= delta * .1f;
-			}
-
-			/* tree with rock */
-			if (heroPosX > -9 && heroPosY < -479 && heroPosY > -565) {
-				heroPosX -= delta * .1f;
-			}
-
+			
 		} else if (move == false) {
 			hero = heroLeft;
 			move = true;
 		}
 
+
+			/* if (bgOffSetX > 206) {
+				bgOffSetX -= delta * .1f;
+			} */
+
+			/* tree collision 
+			if (bgOffSetX > -30 && bgOffSetY < -198 && bgOffSetY > -278) {
+				bgOffSetX -= delta * .1f;
+			}
+
+			if (bgOffSetX > -424 && bgOffSetY < -163 && bgOffSetY > -414) {
+				bgOffSetX -= delta * .1f;
+			}
+
+			/* castle bushes 
+			if (bgOffSetX > -78 && bgOffSetY < -93 && bgOffSetY > -113) {
+				bgOffSetX -= delta * .1f;
+			}
+
+			/* cluster of trees 
+			if (bgOffSetX > -293 && bgOffSetY < -684 && bgOffSetY > -714) {
+				bgOffSetX -= delta * .1f;
+			}
+
+			if (bgOffSetX > -356 && bgOffSetY < -563 && bgOffSetY > -665) {
+				bgOffSetX -= delta * .1f;
+			}
+
+			if (bgOffSetX > -4 && bgOffSetY < -483 && bgOffSetY > -559) {
+				bgOffSetX -= delta * .1f;
+			}
+
+			/* tree with rock 
+			if (bgOffSetX > -9 && bgOffSetY < -479 && bgOffSetY > -565) {
+				bgOffSetX -= delta * .1f;
+			}
+
+		} else if (move == false) {
+			hero = heroLeft;
+			move = true;
+		} */
+
 		/* up movement */
 		if (input.isKeyDown(Input.KEY_UP)) {
 			hero = heroUp2;
-			heroPosY += delta * .1f;
+			bgOffSetY += delta * .1f;
+			heroPosY -= delta * .1f;
 			move2 = false;
-
-			if (heroPosY > 260) {
-				heroPosY -= delta * .1f;
-			}
-
-			/* tree collisions */
-			if (heroPosX > 1 && heroPosX < 61) {
-				heroPosY -= delta * .1f;
-			}
-
-			if (heroPosX > -398 && heroPosX < -323) {
-				heroPosY -= delta * .1f;
-			}
-
-			/* castle bushes */
-			if (heroPosY > -123 && heroPosX > -51 && heroPosX < 178) {
-				heroPosY -= delta * .1f;
-			}
-
-			if (heroPosY > -120 && heroPosX > -438 && heroPosX < -202) {
-				heroPosY -= delta * .1f;
-			}
-
-			/* castle entrance */
-			if (heroPosY > -89 && heroPosX > -188 && heroPosX < -75) {
-				heroPosY -= delta * .1f;
-			}
-
-			/* cluster of trees */
-			if (heroPosY > -668 && heroPosX > -366 && heroPosX < -283) {
-				heroPosY -= delta * .1f;
-			}
-
-			if (heroPosY > -556 && heroPosX > 112 && heroPosX < 133) {
-				heroPosY -= delta * .1f;
-			}
-
-			/* tree with the rock */
-			if (heroPosY > -577 && heroPosX > 29 && heroPosX < 110) {
-				heroPosY -= delta * .1f;
-			}
-
+			
 		} else if (move2 == false) {
 			hero = heroUp;
 			move2 = true;
 		}
 
+			/* if (bgOffSetY > 260) {
+				bgOffSetY -= delta * .1f;
+			} */
+
+			/* tree collisions 
+			if (bgOffSetX > 1 && bgOffSetX < 61) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			if (bgOffSetX > -398 && bgOffSetX < -323) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			/* castle bushes 
+			if (bgOffSetY > -123 && bgOffSetX > -51 && bgOffSetX < 178) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			if (bgOffSetY > -120 && bgOffSetX > -438 && bgOffSetX < -202) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			/* castle entrance 
+			if (bgOffSetY > -89 && bgOffSetX > -188 && bgOffSetX < -75) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			/* cluster of trees 
+			if (bgOffSetY > -668 && bgOffSetX > -366 && bgOffSetX < -283) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			if (bgOffSetY > -556 && bgOffSetX > 112 && bgOffSetX < 133) {
+				bgOffSetY -= delta * .1f;
+			}
+
+			/* tree with the rock 
+			if (bgOffSetY > -577 && bgOffSetX > 29 && bgOffSetX < 110) {
+				bgOffSetY -= delta * .1f;
+			}
+
+		} else if (move2 == false) {
+			hero = heroUp;
+			move2 = true;
+		} */
+
 		/* down movement */
 		if (input.isKeyDown(Input.KEY_DOWN)) {
 			hero = heroDown2;
-			heroPosY -= delta * .1f;
+			bgOffSetY -= delta * .1f;
+			heroPosY += delta * .1f;
 			move3 = false;
-
-			if (heroPosY < -715) {
-				heroPosY += delta * .1f;
-			}
-
-			/* tree collisions */
-			if (heroPosY < -155 && heroPosX > -1 && heroPosX < 61) {
-				heroPosY += delta * .1f;
-			}
-
-			if (heroPosY < -141 && heroPosX > -396 && heroPosX < -316) {
-				heroPosY += delta * .1f;
-			}
-
-			/* cluster of trees */
-			if (heroPosY < -534 && heroPosX > -329 && heroPosX < -131) {
-				heroPosY += delta * .1f;
-			}
-
-			if (heroPosY < -603 && heroPosX > -109 && heroPosX < -27) {
-				heroPosY += delta * .1f;
-			}
-
-			/* tree with rock */
-			if (heroPosY < -441 && heroPosX > 46 && heroPosX < 101) {
-				heroPosY += delta * .1f;
-			}
-
-			/* cluster of rocks */
-			if (heroPosY < -663 && heroPosX > -780 && heroPosX < -641) {
-				heroPosY += delta * .1f;
-			}
-
-			if (heroPosY < -667 && heroPosX > -718 && heroPosX < -678) {
-				heroPosY += delta * .1f;
-			}
-
+			
 		} else if (move3 == false) {
 			hero = heroDown;
 			move3 = true;
 		}
 
+			/* if (bgOffSetY < -715) {
+				bgOffSetY += delta * .1f;
+			} *
+
+			/* tree collisions 
+			if (bgOffSetY < -155 && bgOffSetX > -1 && bgOffSetX < 61) {
+				bgOffSetY += delta * .1f;
+			}
+
+			if (bgOffSetY < -141 && bgOffSetX > -396 && bgOffSetX < -316) {
+				bgOffSetY += delta * .1f;
+			}
+
+			/* cluster of trees 
+			if (bgOffSetY < -534 && bgOffSetX > -329 && bgOffSetX < -131) {
+				bgOffSetY += delta * .1f;
+			}
+
+			if (bgOffSetY < -603 && bgOffSetX > -109 && bgOffSetX < -27) {
+				bgOffSetY += delta * .1f;
+			}
+
+			/* tree with rock 
+			if (bgOffSetY < -441 && bgOffSetX > 46 && bgOffSetX < 101) {
+				bgOffSetY += delta * .1f;
+			}
+
+			/* cluster of rocks 
+			if (bgOffSetY < -663 && bgOffSetX > -780 && bgOffSetX < -641) {
+				bgOffSetY += delta * .1f;
+			}
+
+			if (bgOffSetY < -667 && bgOffSetX > -718 && bgOffSetX < -678) {
+				bgOffSetY += delta * .1f;
+			}
+
+		} 
+		} */
+
 		/* right movement */
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			hero = heroRight2;
-			heroPosX -= delta * .1f;
+			bgOffSetX -= delta * .1f;
+			heroPosX += delta * .1f;
+			
 			move4 = false;
+			
+		} else if (move4 == false) {
+			hero = heroRight;
+			move4 = true;
+			
+		}
 
-			if (heroPosX < -781) {
-				heroPosX += delta * .1f;
+			/* if (bgOffSetX < -781) {
+				bgOffSetX += delta * .1f;
 			}
 
-			/* tree collisions */
-			if (heroPosX < 80 && heroPosY < -178 && heroPosY > -268) {
-				heroPosX += delta * .1f;
+			/* tree collisions 
+			if (bgOffSetX < 80 && bgOffSetY < -178 && bgOffSetY > -268) {
+				bgOffSetX += delta * .1f;
 			}
 
-			if (heroPosX < -300 && heroPosY < -159 && heroPosY > -235) {
-				heroPosX += delta * .1f;
+			if (bgOffSetX < -300 && bgOffSetY < -159 && bgOffSetY > -235) {
+				bgOffSetX += delta * .1f;
 			}
 
-			/* castle bushes */
-			if (heroPosX < -182 & heroPosY < -85 && heroPosY > -113) {
-				heroPosX += delta * .1f;
+			/* castle bushes 
+			if (bgOffSetX < -182 & bgOffSetY < -85 && bgOffSetY > -113) {
+				bgOffSetX += delta * .1f;
 			}
 
-			/* cluster of trees */
-			if (heroPosX < -110 & heroPosY < -563 && heroPosY > -602) {
-				heroPosX += delta * .1f;
+			/* cluster of trees 
+			if (bgOffSetX < -110 & bgOffSetY < -563 && bgOffSetY > -602) {
+				bgOffSetX += delta * .1f;
 			}
 
-			if (heroPosX < -6 & heroPosY < -637 && heroPosY > -714) {
-				heroPosX += delta * .1f;
+			if (bgOffSetX < -6 & bgOffSetY < -637 && bgOffSetY > -714) {
+				bgOffSetX += delta * .1f;
 			}
 
-			/* tree with rock */
-			if (heroPosX < 132 & heroPosY < -467 && heroPosY > -554) {
-				heroPosX += delta * .1f;
+			/* tree with rock 
+			if (bgOffSetX < 132 & bgOffSetY < -467 && bgOffSetY > -554) {
+				bgOffSetX += delta * .1f;
 			}
 
-			/* cluster of rocks */
-			if (heroPosX < -656 & heroPosY < -677 && heroPosY > -714) {
-				heroPosX += delta * .1f;
+			/* cluster of rocks 
+			if (bgOffSetX < -656 & bgOffSetY < -677 && bgOffSetY > -714) {
+				bgOffSetX += delta * .1f;
 			}
 
 		} else if (move4 == false) {
 			hero = heroRight;
 			move4 = true;
-		}
+		} */
 
-		/* reset to default view: down movement */
+		/* reset to default view: down movement */ 
 		if (input.isKeyDown(Input.KEY_M)) {
-			hero = heroDown;
-		}
+			hero = heroDown; 
+		} 
 		
+		ArrayList<Collidable> collisions = CollisionDetector.detectCols(this, collidables);
+		if(!collisions.isEmpty()) {
+			bgOffSetX = currentX;
+			bgOffSetY = currentY;
+			
+		}
+		heroPosX = currentHeroX;
+		heroPosY = currentHeroY;
 	
 		
 	}
@@ -266,25 +309,25 @@ public class Ray implements Collidable {
 	@Override
 	public float getX() {
 		// TODO Auto-generated method stub
-		return 0;
+		return heroPosX;
 	}
 
 	@Override
 	public float getY() {
 		// TODO Auto-generated method stub
-		return 0;
+		return heroPosY;
 	}
 
 	@Override
 	public float getWidth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 26;
 	}
 
 	@Override
 	public float getHeight() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 26;
 	}
 
 

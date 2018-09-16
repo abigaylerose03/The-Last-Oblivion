@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.characters.Lily;
 import org.characters.Ray;
+import org.characters.Auston;
 
 import javagame.Collidable;
 import javagame.CollisionDetector;
@@ -14,9 +15,12 @@ public class EarthKingdom extends BasicGameState {
 
 	Image worldMap;
 	
-	/* external game entities */
+	/* external game character entities */
 	Lily lilyObject;
 	Ray rayObject;
+	Auston austonObject;
+	
+	ArrayList<Collidable> objectsColide;
 
 	public EarthKingdom(int state) {
 	}
@@ -25,32 +29,39 @@ public class EarthKingdom extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		lilyObject = new Lily();
 		rayObject = new Ray();
+		austonObject = new Auston();
 		
-		ArrayList<Collidable> objectsColide = new ArrayList<Collidable>();
+		
+		objectsColide = new ArrayList<Collidable>();
 		objectsColide.add(lilyObject);
+		objectsColide.add(austonObject);
 		
 		worldMap = new Image("res/earthKingdom.png");
+
 		
-		ArrayList<Collidable> collisions = CollisionDetector.detectCols(rayObject, objectsColide);
-			
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		/* the fields of heroPosX and heroPosY are public */
-		worldMap.draw(rayObject.heroPosX, rayObject.heroPosY);
+		worldMap.draw(rayObject.bgOffSetX, rayObject.bgOffSetY);
 		
-		lilyObject.setMapOffset(rayObject.heroPosX, rayObject.heroPosY);
+		lilyObject.setMapOffset(rayObject.bgOffSetX, rayObject.bgOffSetY);
+		austonObject.setMapOffset(rayObject.bgOffSetX, rayObject.bgOffSetY);
+		
 		lilyObject.render(gc, sbg, g);
-		
 		rayObject.render(gc, sbg, g);
+		austonObject.render(gc,  sbg, g);
 
 		
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		rayObject.update(gc, sbg, delta);
+		rayObject.update(gc, sbg, delta, objectsColide);
+
+		
+		
 	}
 	
 	@Override
