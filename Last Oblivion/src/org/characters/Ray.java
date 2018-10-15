@@ -8,8 +8,13 @@ import org.newdawn.slick.state.*;
 import javagame.Collidable;
 import javagame.CollisionDetector;
 
+import javagame.TextBox;
+import javagame.Talkable;
+
+import org.characters.Auston;
+
 public class Ray implements Collidable {
-	
+
 	Animation hero, heroUp, heroUp2, heroDown, heroDown2, heroLeft, heroLeft2, heroRight, heroRight2;
 
 	boolean move, move2, move3, move4 = true; // the move variables define each movement of the sprite
@@ -24,6 +29,25 @@ public class Ray implements Collidable {
 	
 	public float heroPosX = 210;
 	public float heroPosY = 250;
+	
+	public int heroIntPosX = 210;
+	public int heroIntPosY = 250;
+	
+	public float spriteTextX = 0;
+	public float spriteTextY = 0;
+	
+	public float textX;
+	public float textY;
+	
+	public float currentTextX;
+	public float currentTextY;
+	
+	public ArrayList<Collidable> oldCollisions;
+	
+	public String austonText[] = {"Hello I'm Auston.", "What do you need?"};
+	
+	Lily lilyObject; 
+	Auston austonObject;
 
 
 	public Ray() throws SlickException {
@@ -39,7 +63,7 @@ public class Ray implements Collidable {
 
 		Image[] walkRight = { new Image("res/characters/heroRight.png"), new Image("res/characters/heroRight.png") };
 		Image[] walkRight2 = { new Image("res/characters/heroRight2.png"), new Image("res/characters/heroRight2.png") };
-
+		
 		heroUp = new Animation(walkUp, duration, false);
 		heroUp2 = new Animation(walkUp2, duration, false);
 
@@ -54,14 +78,20 @@ public class Ray implements Collidable {
 
 		hero = heroDown;
 		
+		lilyObject = new Lily();
+		austonObject = new Auston();
+		
+		
 	}
 	
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, ArrayList<Collidable> collidables) throws SlickException {
 		hero.draw(heroPosX, heroPosY);
-		g.drawString("Your x: " + heroPosX + "\nYour y: " + heroPosY, 400, 20);
+		// g.drawString("Your x: " + heroPosX + "\nYour y: " + heroPosY, 400, 20);
+
+		
 	}
 
-	public void update(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<Collidable> collidables) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<Collidable> collidables, TextBox tb) throws SlickException {
 		Input input = gc.getInput();
 		
 		float currentX = bgOffSetX;
@@ -245,7 +275,8 @@ public class Ray implements Collidable {
 			hero = heroRight;
 			move4 = true;
 			
-		}
+		} 
+		
 
 			/* if (bgOffSetX < -781) {
 				bgOffSetX += delta * .1f;
@@ -295,6 +326,7 @@ public class Ray implements Collidable {
 		} 
 		
 		ArrayList<Collidable> collisions = CollisionDetector.detectCols(this, collidables);
+		
 		if(!collisions.isEmpty()) {
 			bgOffSetX = currentX;
 			bgOffSetY = currentY;
@@ -302,33 +334,91 @@ public class Ray implements Collidable {
 		}
 		heroPosX = currentHeroX;
 		heroPosY = currentHeroY;
-	
+		
+		if(input.isKeyPressed(Input.KEY_SPACE)) {
+			ArrayList<Collidable> collisionsInter = CollisionDetector.detectColsWithMargin(this, collidables, 5);
+			
+			// if tb -> textbox isn't already up and there's a collision 
+			if(tb.getText().isEmpty() && !collisionsInter.isEmpty()) {
+				
+				// is it safe to treat the object, anything, we collided with as Talkable interface
+				if(Talkable.class.isAssignableFrom(collisionsInter.get(0).getClass())) {
+					Talkable character = (Talkable)collisionsInter.get(0);
+					tb.setText(character.getDialogueWithCollidable(this));
+				}
+				
+				
+			
+			} else {
+				tb.setText("");
+				
+			}
+		
+			
+		}
+		
 		
 	}
+	
 
 	@Override
 	public float getX() {
-		// TODO Auto-generated method stub
+		
 		return heroPosX;
 	}
 
 	@Override
 	public float getY() {
-		// TODO Auto-generated method stub
+		
 		return heroPosY;
 	}
 
 	@Override
 	public float getWidth() {
-		// TODO Auto-generated method stub
+		
 		return 26;
 	}
 
 	@Override
 	public float getHeight() {
-		// TODO Auto-generated method stub
+
 		return 26;
 	}
-
+	
+	
+	public void renderSpriteTexts(GameContainer gc, String str, Graphics g, TextBox tb, ArrayList<Collidable> collidables, float textX, float textY) throws SlickException {
+		Input input = gc.getInput();
+		if(input.isKeyPressed(Input.KEY_SPACE)) {
+			ArrayList<Collidable> collisionsInter = CollisionDetector.detectColsWithMargin(this, collidables, 5);
+			
+			// if tb -> textbox isn't already up and there's a collision 
+			if(tb.getText().isEmpty() && !collisionsInter.isEmpty()) {
+				tb.setText("hi");
+				
+			
+			} else {
+				tb.setText("");
+				
+			}
+		
+			
+		}
+		
+		// text only works if you HOLD the key down, otherwise, it flashes excessively 
+		if(input.isKeyDown(Input.KEY_T)) {
+			ArrayList<Collidable> collisionsInter2 = CollisionDetector.detectColsWithMargin(this, collidables, 5);
+			
+			// if tb -> textbox isn't already up and there's a collision 
+			if(tb.getText().isEmpty() && !collisionsInter2.isEmpty()) {
+				
+				
+			
+			} else {
+				tb.setText("");
+			}
+				
+		}
+		
+	}
 
 }

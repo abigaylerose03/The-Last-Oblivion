@@ -2,12 +2,17 @@ package org.kingdom.earth;
 
 import java.util.ArrayList;
 
+import java.awt.Font.*;
+
 import org.characters.Lily;
 import org.characters.Ray;
 import org.characters.Auston;
 
 import javagame.Collidable;
 import javagame.CollisionDetector;
+import javagame.TextBox;
+import javagame.Talkable;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -20,7 +25,14 @@ public class EarthKingdom extends BasicGameState {
 	Ray rayObject;
 	Auston austonObject;
 	
+	float spriteTextX;
+	float spriteTextY;
+	
+	TextBox tb;
+	
 	ArrayList<Collidable> objectsColide;
+	
+	Graphics g;
 
 	public EarthKingdom(int state) {
 	}
@@ -30,19 +42,21 @@ public class EarthKingdom extends BasicGameState {
 		lilyObject = new Lily();
 		rayObject = new Ray();
 		austonObject = new Auston();
+		tb = new TextBox(); // textbox instatiation 
 		
-		
+		// all of the objects you could POTENTIALLY collide with
 		objectsColide = new ArrayList<Collidable>();
 		objectsColide.add(lilyObject);
 		objectsColide.add(austonObject);
 		
 		worldMap = new Image("res/earthKingdom.png");
-
+		
 		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		Input input = gc.getInput();
 		/* the fields of heroPosX and heroPosY are public */
 		worldMap.draw(rayObject.bgOffSetX, rayObject.bgOffSetY);
 		
@@ -50,17 +64,37 @@ public class EarthKingdom extends BasicGameState {
 		austonObject.setMapOffset(rayObject.bgOffSetX, rayObject.bgOffSetY);
 		
 		lilyObject.render(gc, sbg, g);
-		rayObject.render(gc, sbg, g);
-		austonObject.render(gc,  sbg, g);
-
+		rayObject.render(gc, sbg, g, objectsColide);
+		austonObject.render(gc, sbg, g);
+	
+		/* g.drawString("test", 100, 100);
+		g.setColor(Color.black); */
 		
+		/* Input input = gc.getInput();
+		if(objectsColide.get(0) == lilyObject && input.isKeyDown(Input.KEY_0)) {
+			createBox();
+		} */
+		
+		// draws the text box
+		tb.render(gc, sbg, g);
+		
+		// rayObject.renderSpriteTexts(gc, austonObject.austonText[0], g, tb, objectsColide, spriteTextX, spriteTextY);
+		
+		// rayObject.renderSpriteTexts(gc, austonObject.austonText[0], g, tb, objectsColide, spriteTextX, spriteTextY);
+		// austonObject.setSpriteText(austonObject.austonText[0], g, spriteTextX, spriteTextY);
+			
 	}
-
+	
+	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		rayObject.update(gc, sbg, delta, objectsColide);
-
 		
+		rayObject.update(gc, sbg, delta, objectsColide, tb);
+		
+		tb.setOffSetX(rayObject.heroPosX + 25);
+		tb.setOffSetY(rayObject.heroPosY + 50);
+		
+	
 		
 	}
 	
@@ -69,6 +103,7 @@ public class EarthKingdom extends BasicGameState {
 		return 1;
 	}
 
-	public static void main(String[] args) {
-	}
+	
+
+
 }

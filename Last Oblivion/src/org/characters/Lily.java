@@ -7,8 +7,10 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 import javagame.Collidable;
+import javagame.Talkable;
+import javagame.TextBox;
 
-public class Lily implements Collidable {
+public class Lily implements Collidable, Talkable {
 	
 	static Animation lily, lilyUp, lilyUp2, lilyDown, lilyDown2, lilyLeft, lilyLeft2, lilyRight, lilyRight2;
 
@@ -17,6 +19,8 @@ public class Lily implements Collidable {
 	
 	float lilyPosX = -320;
 	float lilyPosY = 200;
+	
+	String lilyText[] = {"Hello my name is princess Lily. What can I do for you today?"};
 	
 	
 	public Lily() throws SlickException {
@@ -110,12 +114,6 @@ public class Lily implements Collidable {
 		lilyPosY = offsetY + 390;
 	}
 
-	
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
-		
-		
-	}
-
 	@Override
 	public float getX() {
 		// TODO Auto-generated method stub
@@ -140,5 +138,10 @@ public class Lily implements Collidable {
 		return 26;
 	}
 
-	
+	@Override
+	public String getDialogueWithCollidable(Collidable actor) {
+		// TODO Auto-generated method stub
+		return lilyText[0];
+	}
+
 }
