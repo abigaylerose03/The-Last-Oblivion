@@ -10,8 +10,6 @@ import javagame.CollisionDetector;
 import javagame.Talkable;
 import javagame.TextBox;
 
-import org.characters.Ray;
-
 public class Auston implements Collidable, Talkable {
 	
 	static Animation auston, austonDown;
@@ -43,7 +41,11 @@ public class Auston implements Collidable, Talkable {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, ArrayList<Collidable> collidables, TextBox tb) {
-
+		Input input = gc.getInput();
+		
+		if(input.isKeyPressed(Input.KEY_A)) {
+			austonText[2] = "hi";
+		}
 	}
 	
 	public void setMapOffset(float offsetx, float offsety) {

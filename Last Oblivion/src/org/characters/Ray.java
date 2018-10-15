@@ -77,10 +77,7 @@ public class Ray implements Collidable {
 		heroRight2 = new Animation(walkRight2, duration, false);
 
 		hero = heroDown;
-		
-		lilyObject = new Lily();
-		austonObject = new Auston();
-		
+	
 		
 	}
 	
@@ -113,9 +110,9 @@ public class Ray implements Collidable {
 		}
 
 
-			/* if (bgOffSetX > 206) {
-				bgOffSetX -= delta * .1f;
-			} */
+		if (bgOffSetX > 206) {
+			bgOffSetX -= delta * .1f;
+		} 
 
 			/* tree collision 
 			if (bgOffSetX > -30 && bgOffSetY < -198 && bgOffSetY > -278) {
@@ -166,9 +163,9 @@ public class Ray implements Collidable {
 			move2 = true;
 		}
 
-			/* if (bgOffSetY > 260) {
-				bgOffSetY -= delta * .1f;
-			} */
+		 if (bgOffSetY > 260) {
+			bgOffSetY -= delta * .1f;
+		} 
 
 			/* tree collisions 
 			if (bgOffSetX > 1 && bgOffSetX < 61) {
@@ -223,10 +220,17 @@ public class Ray implements Collidable {
 			hero = heroDown;
 			move3 = true;
 		}
+	
 
-			/* if (bgOffSetY < -715) {
-				bgOffSetY += delta * .1f;
-			} *
+		if (bgOffSetY < -715) {
+			bgOffSetY += delta * .1f;
+			
+			if(input.isKeyPressed(Input.KEY_RETURN)) {
+				sbg.enterState(3);
+			}
+			
+		} 
+	
 
 			/* tree collisions 
 			if (bgOffSetY < -155 && bgOffSetX > -1 && bgOffSetX < 61) {
@@ -278,9 +282,9 @@ public class Ray implements Collidable {
 		} 
 		
 
-			/* if (bgOffSetX < -781) {
-				bgOffSetX += delta * .1f;
-			}
+		 if (bgOffSetX < -781) {
+			 bgOffSetX += delta * .1f;
+		}
 
 			/* tree collisions 
 			if (bgOffSetX < 80 && bgOffSetY < -178 && bgOffSetY > -268) {
@@ -385,40 +389,5 @@ public class Ray implements Collidable {
 		return 26;
 	}
 	
-	
-	public void renderSpriteTexts(GameContainer gc, String str, Graphics g, TextBox tb, ArrayList<Collidable> collidables, float textX, float textY) throws SlickException {
-		Input input = gc.getInput();
-		if(input.isKeyPressed(Input.KEY_SPACE)) {
-			ArrayList<Collidable> collisionsInter = CollisionDetector.detectColsWithMargin(this, collidables, 5);
-			
-			// if tb -> textbox isn't already up and there's a collision 
-			if(tb.getText().isEmpty() && !collisionsInter.isEmpty()) {
-				tb.setText("hi");
-				
-			
-			} else {
-				tb.setText("");
-				
-			}
-		
-			
-		}
-		
-		// text only works if you HOLD the key down, otherwise, it flashes excessively 
-		if(input.isKeyDown(Input.KEY_T)) {
-			ArrayList<Collidable> collisionsInter2 = CollisionDetector.detectColsWithMargin(this, collidables, 5);
-			
-			// if tb -> textbox isn't already up and there's a collision 
-			if(tb.getText().isEmpty() && !collisionsInter2.isEmpty()) {
-				
-				
-			
-			} else {
-				tb.setText("");
-			}
-				
-		}
-		
-	}
 
 }

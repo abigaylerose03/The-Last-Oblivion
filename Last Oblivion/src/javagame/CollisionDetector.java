@@ -11,6 +11,7 @@ public class CollisionDetector {
 		
 	}
 	
+	@SuppressWarnings("checked")
 	// for sprite interactions, intertwines with Ray class for collision detection space bars
 	public static ArrayList<Collidable> detectColsWithMargin(Collidable actor, ArrayList<Collidable> others, float margin) {
 		ArrayList<Collidable> collisions = new ArrayList<Collidable>();

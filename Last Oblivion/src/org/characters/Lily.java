@@ -20,7 +20,10 @@ public class Lily implements Collidable, Talkable {
 	float lilyPosX = -320;
 	float lilyPosY = 200;
 	
-	String lilyText[] = {"Hello my name is princess Lily. What can I do for you today?"};
+	int dialogIndex;
+	
+	String lilyText[] = {"Hello my name is princess Lily.\n" + "What can I do for you today?",
+					    "Are you busy? Check out the tree of wisdom.", "Bored? There's plenty to do!"};
 	
 	
 	public Lily() throws SlickException {
@@ -140,7 +143,7 @@ public class Lily implements Collidable, Talkable {
 
 	@Override
 	public String getDialogueWithCollidable(Collidable actor) {
-		// TODO Auto-generated method stub
+		
 		return lilyText[0];
 	}
 

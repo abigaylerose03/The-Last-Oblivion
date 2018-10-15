@@ -2,16 +2,12 @@ package org.kingdom.earth;
 
 import java.util.ArrayList;
 
-import java.awt.Font.*;
-
 import org.characters.Lily;
 import org.characters.Ray;
 import org.characters.Auston;
 
 import javagame.Collidable;
-import javagame.CollisionDetector;
 import javagame.TextBox;
-import javagame.Talkable;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -31,8 +27,6 @@ public class EarthKingdom extends BasicGameState {
 	TextBox tb;
 	
 	ArrayList<Collidable> objectsColide;
-	
-	Graphics g;
 
 	public EarthKingdom(int state) {
 	}
@@ -56,7 +50,7 @@ public class EarthKingdom extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		Input input = gc.getInput();
+		
 		/* the fields of heroPosX and heroPosY are public */
 		worldMap.draw(rayObject.bgOffSetX, rayObject.bgOffSetY);
 		
@@ -78,23 +72,17 @@ public class EarthKingdom extends BasicGameState {
 		// draws the text box
 		tb.render(gc, sbg, g);
 		
-		// rayObject.renderSpriteTexts(gc, austonObject.austonText[0], g, tb, objectsColide, spriteTextX, spriteTextY);
-		
-		// rayObject.renderSpriteTexts(gc, austonObject.austonText[0], g, tb, objectsColide, spriteTextX, spriteTextY);
-		// austonObject.setSpriteText(austonObject.austonText[0], g, spriteTextX, spriteTextY);
-			
 	}
 	
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		
+
 		rayObject.update(gc, sbg, delta, objectsColide, tb);
 		
 		tb.setOffSetX(rayObject.heroPosX + 25);
 		tb.setOffSetY(rayObject.heroPosY + 50);
 		
-	
 		
 	}
 	
