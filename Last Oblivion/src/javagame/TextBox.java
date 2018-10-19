@@ -49,28 +49,6 @@ public class TextBox {
 	}
 
 
-	/* @Override
-	public void setTextOffSetX(float x) {
-		// TODO Auto-generated method stub
-		 offSetX = x;
-	}
-	
-	@Override
-	public void setTextOffSetY(float y) {
-		offSetY = y;
-	}
-	
-	@Override
-	public void setSpriteText(String spriteText, Graphics g, float textX, float textY) throws SlickException {
-		// TODO Auto-generated method stub
-		g.drawString(spriteText, (int) textX, (int) textY);
-		g.setColor(Color.black);
-	} */
-
-
-
-
-
 
 
 }

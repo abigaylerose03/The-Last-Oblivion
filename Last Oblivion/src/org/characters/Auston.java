@@ -25,7 +25,8 @@ public class Auston implements Collidable, Talkable {
 	
 	int dialogIndex;
 	
-	public String austonText[] = {"Hello I am Auston.", "hi"};
+	public String austonText[] = {"Notsau:\n" + "...ask me for any in-game questions\n" + "But you should really be on your way..\n"
+	+ "got it?", "hi"};
 	
 	public Auston() throws SlickException {
 		Image[] walkDownAuston = { new Image("res/characters/Auston.png"), new Image("res/characters/Auston.png") };
