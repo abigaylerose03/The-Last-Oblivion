@@ -8,7 +8,6 @@ import org.newdawn.slick.state.*;
 
 import javagame.Collidable;
 import javagame.Talkable;
-import javagame.TextBox;
 
 public class Lily implements Collidable, Talkable {
 	
@@ -24,6 +23,8 @@ public class Lily implements Collidable, Talkable {
 	
 	String lilyText[] = {"Hello my name is princess Lily.\n" + "What can I do for you today?",
 					    "Are you busy? Check out the tree of wisdom.", "Bored? There's plenty to do!"};
+	
+	Image lilyFaceSet = new Image("res/characters/facesets/lilyFaceSet.jpg");
 	
 	
 	public Lily() throws SlickException {
@@ -143,8 +144,13 @@ public class Lily implements Collidable, Talkable {
 
 	@Override
 	public String getDialogueWithCollidable(Collidable actor) {
-		
 		return lilyText[0];
+	}
+
+	@Override
+	public Image getFaceSetWithCollidable(Collidable actor) {
+		// TODO Auto-generated method stub
+		return lilyFaceSet;
 	}
 
 }

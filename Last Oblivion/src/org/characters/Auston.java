@@ -6,9 +6,9 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 import javagame.Collidable;
-import javagame.CollisionDetector;
 import javagame.Talkable;
 import javagame.TextBox;
+
 
 public class Auston implements Collidable, Talkable {
 	
@@ -27,6 +27,8 @@ public class Auston implements Collidable, Talkable {
 	
 	public String austonText[] = {"Notsau:\n" + "...ask me for any in-game questions\n" + "But you should really be on your way..\n"
 	+ "got it?", "hi"};
+	
+	Image austonFaceSet = new Image("res/characters/faceSets/austonFaceSet.png");
 	
 	public Auston() throws SlickException {
 		Image[] walkDownAuston = { new Image("res/characters/Auston.png"), new Image("res/characters/Auston.png") };
@@ -73,6 +75,12 @@ public class Auston implements Collidable, Talkable {
 	public String getDialogueWithCollidable(Collidable actor) {
 		
 		return austonText[0];
+	}
+
+	@Override
+	public Image getFaceSetWithCollidable(Collidable actor) {
+		// TODO Auto-generated method stub
+		return austonFaceSet;
 	}
 
 	

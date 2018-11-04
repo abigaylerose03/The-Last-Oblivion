@@ -9,7 +9,7 @@ import javagame.Collidable;
 import javagame.Talkable;
 import javagame.TextBox;
 
-public class WeaponsDealer implements Collidable, Talkable {
+public class WeaponsDealer implements Collidable {
 	
 	static Animation wdDealer, wdDown;
 	int duration[] = {200, 200};
@@ -25,6 +25,8 @@ public class WeaponsDealer implements Collidable, Talkable {
 	int dialogIndex;
 	
 	public String wdText[] = {"Weapons Dealer:\n" + "Only the best weapons in all of Unkwnovian!\n" + "What would you like to buy?", "hi"};
+	
+	// Image wdFaceSet = new Image("");
 	
 	public WeaponsDealer() throws SlickException {
 		Image[] wdFront = { new Image("res/characters/weaponsDealerFront.png"), new Image("res/characters/weaponsDealerFront.png") };
@@ -45,8 +47,8 @@ public class WeaponsDealer implements Collidable, Talkable {
 	}
 	
 	public void setMapOffset(float offsetx, float offsety) {
-		wdPosX = offsetx + 965;
-		wdPosY = offsety + 100;
+		wdPosX = offsetx + 980;
+		wdPosY = offsety + 95;
 		
 	}
 		
@@ -64,10 +66,16 @@ public class WeaponsDealer implements Collidable, Talkable {
 	@Override
 	public float getHeight() { return 26; }
 
-	@Override
+	/* @Override
 	public String getDialogueWithCollidable(Collidable actor) {
 		return wdText[0];
 	}
+
+	@Override
+	public Image getFaceSetWithCollidable(Collidable actor) {
+		// TODO Auto-generated method stub
+		return wdFaceSet;
+	} */
 }
 
 	

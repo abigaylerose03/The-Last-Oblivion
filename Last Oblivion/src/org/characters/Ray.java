@@ -18,7 +18,8 @@ public class Ray implements Collidable {
 	Animation hero, heroUp, 
 	heroUp2, heroUp3, 
 	heroDown, heroDown2, heroDown3, 
-	heroLeft, heroLeft2, heroRight, heroRight2, 
+	heroLeft, heroLeft2, heroLeft3,
+	heroRight, heroRight2, heroRight3,
 	heroBlink, heroBlink2,
 	heroSwordRight;
 
@@ -61,9 +62,12 @@ public class Ray implements Collidable {
 
 		Image[] walkLeft = { new Image("res/characters/heroLeft.png"), new Image("res/characters/heroLeft.png") };
 		Image[] walkLeft2 = { new Image("res/characters/heroLeft2.png"), new Image("res/characters/heroLeft2.png") };
+		Image[] walkLeft3 = { new Image("res/characters/heroLeft3.png"), new Image("res/characters/heroLeft3.png") };
+		
 
 		Image[] walkRight = { new Image("res/characters/heroRight.png"), new Image("res/characters/heroRight.png") };
 		Image[] walkRight2 = { new Image("res/characters/heroRight2.png"), new Image("res/characters/heroRight2.png") };
+		Image[] walkRight3 = { new Image("res/characters/heroRight3.png"), new Image("res/characters/heroRight3.png") };
 		
 
 		Image[] blink1 = { new Image("res/characters/rayv2_22.png"), new Image("res/characters/rayv2_22.png") };
@@ -85,9 +89,12 @@ public class Ray implements Collidable {
 
 		heroLeft = new Animation(walkLeft, duration, false);
 		heroLeft2 = new Animation(walkLeft2, duration, false);
+		heroLeft3 = new Animation(walkLeft3, duration, false);
 
 		heroRight = new Animation(walkRight, duration, false);
 		heroRight2 = new Animation(walkRight2, duration, false);
+		heroRight3 = new Animation(walkRight3, duration, false);
+		
 		
 		heroBlink = new Animation(blink1, duration, false);
 		heroBlink2 = new Animation(blink2, duration, false);
@@ -111,11 +118,17 @@ public class Ray implements Collidable {
 		Random rayDown = new Random();
 		int r_rayDown = rayDown.nextInt(2);
 		
+		Random rayRight = new Random();
+		int r_rayRight = rayRight.nextInt(2);
+		
+		Random rayLeft = new Random();
+		int r_rayLeft = rayLeft.nextInt(2);
+		
 		
 		switch(r_rayBlink) {
 			
 			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroRight) {
+				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroRight2) {
 					hero = heroBlink;
 					hero.draw(heroPosX, heroPosY);
 					prevTurn = System.currentTimeMillis();
@@ -123,14 +136,14 @@ public class Ray implements Collidable {
 				break;
 			
 			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroRight) {
+				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroRight3) {
 					hero = heroBlink2;
 					hero.draw(heroPosX, heroPosY);
 					prevTurn = System.currentTimeMillis();
 				}
 				break;
 			default:
-				hero = heroUp2;
+				hero = heroRight;
 				break;
 				
 		}
@@ -138,7 +151,7 @@ public class Ray implements Collidable {
 		switch(r_rayUp) {
 			
 			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 30 && hero == heroUp) {
+				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroUp3) {
 					hero = heroUp2;
 					hero.draw(heroPosX, heroPosY);
 					prevTurn = System.currentTimeMillis();
@@ -146,7 +159,7 @@ public class Ray implements Collidable {
 				break;
 			
 			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 30 && hero == heroUp) {
+				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroUp2) {
 					hero = heroUp3;
 					hero.draw(heroPosX, heroPosY);
 					prevTurn = System.currentTimeMillis();
@@ -154,7 +167,8 @@ public class Ray implements Collidable {
 				break;
 				
 			default:
-				hero = heroUp;
+				hero = heroUp2;
+				break;
 		}
 		
 		// equals the heroFront pictures
@@ -189,6 +203,53 @@ public class Ray implements Collidable {
 			
 		}
 		
+		switch(r_rayRight) {
+		
+			case 0:
+				if (System.currentTimeMillis() - prevTurn >= 720 && hero == heroRight3) { 
+					hero = heroRight2;
+					hero.draw(heroPosX, heroPosY);
+					prevTurn = System.currentTimeMillis();
+				}
+				break;
+			
+			case 1:
+				if (System.currentTimeMillis() - prevTurn >= 720 && hero == heroRight2) {
+					hero = heroRight3;
+					hero.draw(heroPosX, heroPosY);
+					prevTurn = System.currentTimeMillis();
+				}
+			break;
+			
+		default:
+			hero = heroRight2;
+			break;
+		
+		}
+		
+		switch(r_rayLeft) {
+		
+			case 0:
+				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroLeft2) {
+					hero = heroLeft3;
+					hero.draw(heroPosX, heroPosY);
+					prevTurn = System.currentTimeMillis();
+				}
+				break;
+			
+			case 1:
+				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroLeft3) {
+					hero = heroLeft2;
+					hero.draw(heroPosX, heroPosY);
+					prevTurn = System.currentTimeMillis();
+				}
+				break;
+				
+			default:
+				hero = heroLeft;
+		}
+	
+		
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<Collidable> collidables, TextBox tb) throws SlickException {
@@ -202,13 +263,13 @@ public class Ray implements Collidable {
 
 		/* left movement */
 		if (input.isKeyDown(Input.KEY_LEFT)) {
-			hero = heroLeft2;
+			hero = heroLeft3;
 			bgOffSetX += delta * .1f;
 			heroPosX -= delta * .1f;
 			move = false;
 			
 		} else if (move == false) {
-			hero = heroLeft;
+			hero = heroLeft2;
 			move = true;
 		}
 
@@ -256,17 +317,17 @@ public class Ray implements Collidable {
 
 		/* up movement */
 		if (input.isKeyDown(Input.KEY_UP)) {
-			hero = heroUp2;
+			hero = heroUp3;
 			bgOffSetY += delta * .1f;
 			heroPosY -= delta * .1f;
 			move2 = false;
 			
 		} else if (move2 == false) {
-			hero = heroUp;
+			hero = heroUp2;
 			move2 = true;
 		}
 
-		 if (bgOffSetY > 260) {
+		 if (sbg.getCurrentStateID() == 1 && bgOffSetY > 260) {
 			bgOffSetY -= delta * .1f;
 		} 
 
@@ -324,7 +385,7 @@ public class Ray implements Collidable {
 			move3 = true;
 		} 
 	
-
+		// the down collision border for the castle earth kingdom state 
 		if (sbg.getCurrentStateID() == 1 && bgOffSetY < -715) {
 			bgOffSetY += delta * .1f;
 			
@@ -377,14 +438,14 @@ public class Ray implements Collidable {
 
 		/* right movement */
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
-			hero = heroRight2;
+			hero = heroRight3;
 			bgOffSetX -= delta * .1f;
 			heroPosX += delta * .1f;
 			
 			move4 = false;
 			
 		} else if (move4 == false) {
-			hero = heroRight;
+			hero = heroRight2;
 			move4 = true;
 			
 		} 
@@ -457,6 +518,7 @@ public class Ray implements Collidable {
 				if(Talkable.class.isAssignableFrom(collisionsInter.get(0).getClass())) {
 					Talkable character = (Talkable)collisionsInter.get(0);
 					tb.setText(character.getDialogueWithCollidable(this));
+					tb.setFaceSet(character.getFaceSetWithCollidable(this));
 				}
 				
 				

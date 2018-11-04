@@ -6,6 +6,8 @@ import org.newdawn.slick.state.*;
 public class TextBox {
 	
 	Image textBox;
+	Image faceSet;
+	
 	float offSetX;
 	float offSetY;
 	
@@ -24,6 +26,7 @@ public class TextBox {
 		
 		if(!spriteText.isEmpty()) {
 			textBox.draw(offSetX, offSetY);
+			faceSet.draw(offSetX + 336, offSetY);
 			
 			g.setColor(Color.black);
 			g.drawString(spriteText, offSetX + 10, offSetY + 10);
@@ -47,6 +50,10 @@ public class TextBox {
 		spriteText = (String) text;
 		
 	}
+    
+    public void setFaceSet(Image fs) {
+    	faceSet = fs;
+    }
 
 
 
