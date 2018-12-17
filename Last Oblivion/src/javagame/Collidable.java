@@ -9,5 +9,7 @@ public interface Collidable {
 	public float getWidth();
 	
 	public float getHeight();
+	
+	public boolean isScriptable();
 
 }

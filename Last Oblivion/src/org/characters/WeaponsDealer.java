@@ -9,7 +9,7 @@ import javagame.Collidable;
 import javagame.Talkable;
 import javagame.TextBox;
 
-public class WeaponsDealer implements Collidable {
+public class WeaponsDealer implements Collidable, Talkable { 
 	
 	static Animation wdDealer, wdDown;
 	int duration[] = {200, 200};
@@ -24,12 +24,12 @@ public class WeaponsDealer implements Collidable {
 	
 	int dialogIndex;
 	
+	Image wdFaceSet = new Image("res/characters/facesets/weaponsDealerFaceset.png"); 
+	
 	public String wdText[] = {"Weapons Dealer:\n" + "Only the best weapons in all of Unkwnovian!\n" + "What would you like to buy?", "hi"};
 	
-	// Image wdFaceSet = new Image("");
-	
 	public WeaponsDealer() throws SlickException {
-		Image[] wdFront = { new Image("res/characters/weaponsDealerFront.png"), new Image("res/characters/weaponsDealerFront.png") };
+		Image[] wdFront = { new Image("res/characters/elifWeaponsDealer.png"), new Image("res/characters/elifWeaponsDealer.png") };
 		
 		wdDown = new Animation(wdFront, duration, false);
 		wdDealer = wdDown;
@@ -42,7 +42,6 @@ public class WeaponsDealer implements Collidable {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, ArrayList<Collidable> collidables, TextBox tb) {
-		Input input = gc.getInput();
 	
 	}
 	
@@ -66,7 +65,7 @@ public class WeaponsDealer implements Collidable {
 	@Override
 	public float getHeight() { return 26; }
 
-	/* @Override
+	@Override
 	public String getDialogueWithCollidable(Collidable actor) {
 		return wdText[0];
 	}
@@ -75,7 +74,15 @@ public class WeaponsDealer implements Collidable {
 	public Image getFaceSetWithCollidable(Collidable actor) {
 		// TODO Auto-generated method stub
 		return wdFaceSet;
-	} */
+	}
+
+	@Override
+	public boolean isScriptable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }
 
 	

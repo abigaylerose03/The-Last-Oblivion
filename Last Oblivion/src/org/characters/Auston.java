@@ -26,9 +26,9 @@ public class Auston implements Collidable, Talkable {
 	int dialogIndex;
 	
 	public String austonText[] = {"Notsau:\n" + "...ask me for any in-game questions\n" + "But you should really be on your way..\n"
-	+ "got it?", "hi"};
+	+ "got it?", "What? You don't understand\nthe game controls?"};
 	
-	Image austonFaceSet = new Image("res/characters/faceSets/austonFaceSet.png");
+	Image austonFaceSet = new Image("res/characters/faceSets/austonFaceset.png");
 	
 	public Auston() throws SlickException {
 		Image[] walkDownAuston = { new Image("res/characters/Auston.png"), new Image("res/characters/Auston.png") };
@@ -45,10 +45,6 @@ public class Auston implements Collidable, Talkable {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, ArrayList<Collidable> collidables, TextBox tb) {
 		Input input = gc.getInput();
-		
-		if(input.isKeyPressed(Input.KEY_A)) {
-			austonText[2] = "hi";
-		}
 	}
 	
 	public void setMapOffset(float offsetx, float offsety) {
@@ -83,5 +79,10 @@ public class Auston implements Collidable, Talkable {
 		return austonFaceSet;
 	}
 
-	
+	@Override
+	public boolean isScriptable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -6,20 +6,30 @@ import org.newdawn.slick.state.*;
 
 
 public class Menu extends BasicGameState {
+	
+	Music music; 
+	Music musicCity; // elif kingdom city1 music 
+	
 	Image playGame;
 	Image exitGame;
 	Image dragon; // background image
 	
-	public String mouse = "testing 123"; // for the mouse cors, future use
+	// public String mouse = "testing 123"; // for the mouse cors, future use
 	
 	public Menu(int state) {}
 	
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		dragon = new Image("res/dragon.jpg");
 		playGame = new Image("res/playNow.png");
 		exitGame = new Image("res/exitNow.png");
 		
+		music = new Music("res/music/testMusic.ogg");
+		// music.setVolume(0.2f);
+		
+		// if(!music.playing() && sbg.getCurrentStateID() == 0) {
+		// 	music.play();
+		// } 
 		
 	}
 
@@ -43,7 +53,7 @@ public class Menu extends BasicGameState {
 		/* play now button */
 		if((posX > 100 && posX < 390) && (posY > 830 && posY < 890)) {
 			if(Mouse.isButtonDown(0)) {
-				sbg.enterState(1); // play state
+				sbg.enterState(4); // play state
 			}
 		}
 		
@@ -53,6 +63,7 @@ public class Menu extends BasicGameState {
 				System.exit(0);
 			}
 		}
+		
 	}
 
 	@Override

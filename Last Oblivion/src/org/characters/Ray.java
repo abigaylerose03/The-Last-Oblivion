@@ -11,17 +11,42 @@ import javagame.CollisionDetector;
 
 import javagame.TextBox;
 import javagame.Talkable;
+import javagame.PlayMenu;
 
+import javagame.RayTalk;
 
 public class Ray implements Collidable {
+	
+	public Animation hero;
+	Animation heroUp;
 
-	Animation hero, heroUp, 
-	heroUp2, heroUp3, 
-	heroDown, heroDown2, heroDown3, 
-	heroLeft, heroLeft2, heroLeft3,
-	heroRight, heroRight2, heroRight3,
-	heroBlink, heroBlink2,
-	heroSwordRight;
+	Animation heroUp2;
+
+	Animation heroUp3;
+
+	Animation heroDown;
+
+	Animation heroDown2;
+
+	Animation heroDown3;
+
+	Animation heroLeft;
+
+	Animation heroLeft2;
+
+	Animation heroLeft3;
+
+	public Animation heroRight;
+
+	Animation heroRight2;
+
+	Animation heroRight3;
+
+	Animation heroBlink;
+
+	Animation heroBlink2;
+
+	Animation heroSwordRight;
 
 	boolean move, move2, move3, move4 = true; // the move variables define each movement of the sprite
 												// true: can move legs/arms
@@ -48,9 +73,71 @@ public class Ray implements Collidable {
 	public float currentTextX;
 	public float currentTextY;
 	
+	boolean newGame = true;
+	
+	Animation runUp, runLeft, runDown, runRight;
+	
+	Image walkUp;
+	Image walkUp2;
+	Image walkUp3;
+	
+	Image walkLeft;
+	Image walkLeft2;
+	Image walkLeft3;
+	Image walkLeft4;
+	
+	Image walkDown;
+	Image walkDown2;
+	Image walkDown3;
+	Image walkDown4;
+	
+	Image walkRight, walkRight2, walkRight3;
+
+	
 	public ArrayList<Collidable> oldCollisions;
 
 	public Ray() throws SlickException {
+	
+		walkUp = new Image("res/characters/heroBack.png");
+		walkUp2 = new Image("res/characters/heroBack2.png");
+		walkUp3 = new Image("res/characters/heroBack3.png");
+		
+		walkLeft = new Image("res/characters/heroLeft.png");
+		walkLeft2 = new Image("res/characters/rayLeft2.png");
+		walkLeft3 = new Image("res/characters/rayLeft3.png");
+		walkLeft4 = new Image("res/characters/rayLeft4.png");
+		
+		walkDown = new Image("res/characters/heroFront.png");
+		walkDown2 = new Image("res/characters/heroFront2.png");
+		walkDown3 = new Image("res/characters/heroFront3.png");
+		walkDown4 = new Image("res/characters/heroFront4.png");
+		
+		walkRight = new Image("res/characters/heroRight.png");
+		walkRight2 = new Image("res/characters/heroRight2.png");
+		walkRight3 = new Image("res/characters/heroRight3.png");
+	
+		runUp = new Animation();
+		runLeft = new Animation();
+		runDown = new Animation();
+		runRight = new Animation();
+		
+		
+		runUp.addFrame(walkUp, 100);
+		runUp.addFrame(walkUp2, 100);
+		runUp.addFrame(walkUp3, 100);
+		
+		runLeft.addFrame(walkLeft, 100);
+		runLeft.addFrame(walkLeft2, 100);
+		runLeft.addFrame(walkLeft3, 100);
+		runLeft.addFrame(walkLeft4, 100);
+		
+		runDown.addFrame(walkDown, 100);
+		runDown.addFrame(walkDown2, 100);
+		runDown.addFrame(walkDown3, 100);
+		
+		runRight.addFrame(walkRight, 150);
+		runRight.addFrame(walkRight2, 150);
+		runRight.addFrame(walkRight3, 150);
 		
 		Image[] walkUp = { new Image("res/characters/heroBack.png"), new Image("res/characters/heroBack.png") };
 		Image[] walkUp2 = { new Image("res/characters/heroBack2.png"), new Image("res/characters/heroBack2.png") };
@@ -68,17 +155,8 @@ public class Ray implements Collidable {
 		Image[] walkRight = { new Image("res/characters/heroRight.png"), new Image("res/characters/heroRight.png") };
 		Image[] walkRight2 = { new Image("res/characters/heroRight2.png"), new Image("res/characters/heroRight2.png") };
 		Image[] walkRight3 = { new Image("res/characters/heroRight3.png"), new Image("res/characters/heroRight3.png") };
-		
 
-		Image[] blink1 = { new Image("res/characters/rayv2_22.png"), new Image("res/characters/rayv2_22.png") };
-		Image[] blink2 = { new Image("res/characters/rayv2_23.png"), new Image("res/characters/rayv2_23.png") };
-		
-		Image[] swordRight = { new Image("res/characters/heroSwordRight.png"), new Image("res/characters/heroSwordRight.png") };
-		
-		
-		
-		
-		
+
 		heroUp = new Animation(walkUp, duration, false);
 		heroUp2 = new Animation(walkUp2, duration, false);
 		heroUp3 = new Animation(walkUp3, duration, false);
@@ -95,164 +173,19 @@ public class Ray implements Collidable {
 		heroRight2 = new Animation(walkRight2, duration, false);
 		heroRight3 = new Animation(walkRight3, duration, false);
 		
-		
-		heroBlink = new Animation(blink1, duration, false);
-		heroBlink2 = new Animation(blink2, duration, false);
-		
-		heroSwordRight = new Animation(swordRight, duration, false);
-	
 		hero = heroDown;
-	
+
 		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, ArrayList<Collidable> collidables) throws SlickException {
 		hero.draw(heroPosX, heroPosY);
-		// g.drawString("Your x: " + heroPosX + "\nYour y: " + heroPosY, 400, 20);
-		Random rayBlink = new Random();
-		int r_rayBlink = rayBlink.nextInt(2);
-		
-		Random rayUp = new Random();
-		int r_rayUp = rayUp.nextInt(2);
-		
-		Random rayDown = new Random();
-		int r_rayDown = rayDown.nextInt(2);
-		
-		Random rayRight = new Random();
-		int r_rayRight = rayRight.nextInt(2);
-		
-		Random rayLeft = new Random();
-		int r_rayLeft = rayLeft.nextInt(2);
-		
-		
-		switch(r_rayBlink) {
-			
-			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroRight2) {
-					hero = heroBlink;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroRight3) {
-					hero = heroBlink2;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			default:
-				hero = heroRight;
-				break;
-				
-		}
-		
-		switch(r_rayUp) {
-			
-			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroUp3) {
-					hero = heroUp2;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroUp2) {
-					hero = heroUp3;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-				
-			default:
-				hero = heroUp2;
-				break;
-		}
-		
-		// equals the heroFront pictures
-		switch(r_rayDown) {
-		
-			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 720 && hero == heroDown3) { 
-					hero = heroDown2;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 720 && hero == heroDown2) {
-					hero = heroDown3;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-			break;
-			
-			/* case 3:
-				if (System.currentTimeMillis() - prevTurn >= 1000 && hero == heroDown3) {
-					hero = heroDown;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-			break; */
-		default:
-			hero = heroDown2;
-			break;
-			
-		}
-		
-		switch(r_rayRight) {
-		
-			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 720 && hero == heroRight3) { 
-					hero = heroRight2;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 720 && hero == heroRight2) {
-					hero = heroRight3;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-			break;
-			
-		default:
-			hero = heroRight2;
-			break;
-		
-		}
-		
-		switch(r_rayLeft) {
-		
-			case 0:
-				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroLeft2) {
-					hero = heroLeft3;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-			
-			case 1:
-				if (System.currentTimeMillis() - prevTurn >= 730 && hero == heroLeft3) {
-					hero = heroLeft2;
-					hero.draw(heroPosX, heroPosY);
-					prevTurn = System.currentTimeMillis();
-				}
-				break;
-				
-			default:
-				hero = heroLeft;
-		}
+		// runUp.draw(heroPosX, heroPosY);
 	
 		
 	}
 
-	public void update(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<Collidable> collidables, TextBox tb) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<Collidable> collidables, TextBox tb, PlayMenu pm) throws SlickException {
 		Input input = gc.getInput();
 		
 		float currentX = bgOffSetX;
@@ -260,21 +193,21 @@ public class Ray implements Collidable {
 		
 		float currentHeroX = heroPosX;
 		float currentHeroY = heroPosY;
+		
+		runUp.setAutoUpdate(true);
+		runLeft.setAutoUpdate(true);
 
 		/* left movement */
 		if (input.isKeyDown(Input.KEY_LEFT)) {
-			hero = heroLeft3;
+			hero = runLeft;
 			bgOffSetX += delta * .1f;
 			heroPosX -= delta * .1f;
-			move = false;
 			
-		} else if (move == false) {
-			hero = heroLeft2;
-			move = true;
+			runLeft.update(delta);
+		
 		}
 
-
-		if (bgOffSetX > 206) {
+		if (sbg.getCurrentStateID() == 1 && bgOffSetX > 206) {
 			bgOffSetX -= delta * .1f;
 		} 
 
@@ -312,19 +245,16 @@ public class Ray implements Collidable {
 
 		} else if (move == false) {
 			hero = heroLeft;
+			
 			move = true;
 		} */
 
 		/* up movement */
 		if (input.isKeyDown(Input.KEY_UP)) {
-			hero = heroUp3;
+			hero = runUp;
 			bgOffSetY += delta * .1f;
 			heroPosY -= delta * .1f;
-			move2 = false;
-			
-		} else if (move2 == false) {
-			hero = heroUp2;
-			move2 = true;
+			runUp.update(delta);
 		}
 
 		 if (sbg.getCurrentStateID() == 1 && bgOffSetY > 260) {
@@ -375,14 +305,10 @@ public class Ray implements Collidable {
 
 		/* down movement */
 		if (input.isKeyDown(Input.KEY_DOWN)) {
-			hero = heroDown3;
+			hero = runDown;
 			bgOffSetY -= delta * .1f;
 			heroPosY += delta * .1f;
-			move3 = false;
-			
-		} else if (move3 == false) {
-			hero = heroDown2;
-			move3 = true;
+			runDown.update(delta);
 		} 
 	
 		// the down collision border for the castle earth kingdom state 
@@ -438,15 +364,11 @@ public class Ray implements Collidable {
 
 		/* right movement */
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
-			hero = heroRight3;
+			hero = runRight;
 			bgOffSetX -= delta * .1f;
 			heroPosX += delta * .1f;
-			
-			move4 = false;
-			
-		} else if (move4 == false) {
-			hero = heroRight2;
-			move4 = true;
+			runRight.update(delta);
+		
 			
 		} 
 		
@@ -492,11 +414,6 @@ public class Ray implements Collidable {
 			hero = heroRight;
 			move4 = true;
 		} */
-
-		/* reset to default view: down movement */ 
-		if (input.isKeyDown(Input.KEY_M)) {
-			hero = heroDown; 
-		} 
 		
 		ArrayList<Collidable> collisions = CollisionDetector.detectCols(this, collidables);
 		
@@ -508,28 +425,36 @@ public class Ray implements Collidable {
 		heroPosX = currentHeroX;
 		heroPosY = currentHeroY;
 		
-		if(input.isKeyPressed(Input.KEY_SPACE)) {
+		if(input.isKeyPressed(Input.KEY_SPACE)) {	
 			ArrayList<Collidable> collisionsInter = CollisionDetector.detectColsWithMargin(this, collidables, 5);
-			
-			// if tb -> textbox isn't already up and there's a collision 
+			Talkable character = (Talkable)collisionsInter.get(0);
+			// if the text box isn't already up and there's a collision 
 			if(tb.getText().isEmpty() && !collisionsInter.isEmpty()) {
 				
 				// is it safe to treat the object, anything, we collided with as Talkable interface
 				if(Talkable.class.isAssignableFrom(collisionsInter.get(0).getClass())) {
-					Talkable character = (Talkable)collisionsInter.get(0);
+					
 					tb.setText(character.getDialogueWithCollidable(this));
-					tb.setFaceSet(character.getFaceSetWithCollidable(this));
+					tb.setFaceSet(character.getFaceSetWithCollidable(this));			
 				}
-				
-				
+			
 			
 			} else {
 				tb.setText("");
 				
 			}
-		
 			
 		}
+		
+		// play menu will soon allow for different party members
+		if(input.isKeyPressed(Input.KEY_M)) {
+			if(pm.checkIfOpen().isEmpty()) {
+				pm.open("placeholder");
+			} else {
+				pm.open("");
+			}
+		}
+	
 		
 		
 	}
@@ -558,6 +483,13 @@ public class Ray implements Collidable {
 
 		return 26;
 	}
+
+	@Override
+	public boolean isScriptable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 	
 
 }

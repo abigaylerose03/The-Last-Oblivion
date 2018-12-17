@@ -45,9 +45,8 @@ public class TextBox {
 	
 	public String getText() { return spriteText; }
 
-    public void setText(String text) {
-		// TODO Auto-generated method stub
-		spriteText = (String) text;
+    public String setText(String text) {
+		return spriteText = (String) text;
 		
 	}
     

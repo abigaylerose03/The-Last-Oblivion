@@ -8,4 +8,5 @@ public interface Talkable {
 	
 	public Image getFaceSetWithCollidable(Collidable actor);
 
+
 }

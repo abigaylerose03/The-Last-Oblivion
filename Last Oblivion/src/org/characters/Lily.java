@@ -8,6 +8,7 @@ import org.newdawn.slick.state.*;
 
 import javagame.Collidable;
 import javagame.Talkable;
+import javagame.RayTalk;
 
 public class Lily implements Collidable, Talkable {
 	
@@ -21,10 +22,12 @@ public class Lily implements Collidable, Talkable {
 	
 	int dialogIndex;
 	
-	String lilyText[] = {"Hello my name is princess Lily.\n" + "What can I do for you today?",
+	Boolean eventStart = false;
+	
+	String lilyText[] = {"Hello my name is Princess Lily.\n" + "What can I do for you today?",
 					    "Are you busy? Check out the tree of wisdom.", "Bored? There's plenty to do!"};
 	
-	Image lilyFaceSet = new Image("res/characters/facesets/lilyFaceSet.jpg");
+	Image lilyFaceSet = new Image("res/characters/facesets/lilyFaceset.png");
 	
 	
 	public Lily() throws SlickException {
@@ -32,8 +35,7 @@ public class Lily implements Collidable, Talkable {
 		Image[] walkUpLily2 = { new Image("res/characters/lilyBack2.png"), new Image("res/characters/lilyBack2.png") };
 
 		Image[] walkDownLily = { new Image("res/characters/lilyFront.png"), new Image("res/characters/lilyFront.png") };
-		Image[] walkDownLily2 = { new Image("res/characters/lilyFront2.png"),
-				new Image("res/characters/lilyFront2.png") };
+		Image[] walkDownLily2 = { new Image("res/characters/lilyFront2.png"),new Image("res/characters/lilyFront2.png") };
 
 		Image[] walkLeftLily = { new Image("res/characters/lilyLeft.png"), new Image("res/characters/lilyLeft.png") };
 		Image[] walkLeftLily2 = { new Image("res/characters/lilyLeft2.png"),
@@ -149,8 +151,13 @@ public class Lily implements Collidable, Talkable {
 
 	@Override
 	public Image getFaceSetWithCollidable(Collidable actor) {
-		// TODO Auto-generated method stub
 		return lilyFaceSet;
+	}
+
+	@Override
+	public boolean isScriptable() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
