@@ -1,9 +1,11 @@
 package javagame;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -14,11 +16,13 @@ import org.characters.*;
 
 public class TextParser {
 	
-	private static String line;
+	String currentLine;
+	
+	Joy joyObject;
 
 	public TextParser() throws IOException, SlickException {
-		// CH 1 - Library 
-		line = Files.readAllLines(Paths.get("/Users/abigaylepeterson/Documents/GitHub/The-Last-Oblivion/Last Oblivion/src/org/mainplot/library.txt")).get(2);
+	
+		joyObject = new Joy();
 		
 	}
 	
@@ -26,13 +30,27 @@ public class TextParser {
 		
 	}
 	
-	public void update(GameContainer gc, StateBasedGame sbg, int delta, TextBox tb, /* ArrayList<Collidable> collidables */ ArrayList<Scriptable> scriptables, PlayMenu pm) throws SlickException {
-		// check if object (from the Collidable interface) is scriptable by
-		// the problem im running into is HOW we can check if character is scriptable or not 
-		// confusing: two interfaces to deal with 
+	public void update(GameContainer gc, StateBasedGame sbg, int delta, TextBox tb, PlayMenu pm, ArrayList<Scriptable> scriptables) throws SlickException, IOException {
+		List<String> line = Files.readAllLines(Paths.get("/Users/abigaylepeterson/Documents/GitHub/The-Last-Oblivion/Last Oblivion/src/org/mainplot/library.txt"));
+		Collidable characterScript = (Collidable)scriptables.get(0);
 		
+		if(characterScript.isScriptable()) {
+			scriptables.add((Scriptable)characterScript);
+			
+			
+			((Scriptable) characterScript).move(200, 200, "down", .1f, delta);
+			((Scriptable) characterScript).move(800, 200, "right", .1f, delta);
+			
+			// use that for talking if not move
+			// tb.setText(((Scriptable)characterScript.talk(line.get(i)));
+				
+			}
+			
+		}
+	
 		
-		
+	
+			
 		
 		
 		/* for large files:
@@ -42,14 +60,20 @@ public class TextParser {
 		
 		}
 		*/
-	}
+	
 	
 	public static void main(String[] args) throws IOException {
-		line = Files.readAllLines(Paths.get("/Users/abigaylepeterson/Documents/GitHub/The-Last-Oblivion/Last Oblivion/src/org/mainplot/library.txt")).get(2);
+		List<String> line = Files.readAllLines(Paths.get("/Users/abigaylepeterson/Documents/GitHub/The-Last-Oblivion/Last Oblivion/src/org/mainplot/library.txt"));
 		
-		if(line.contains("Joy:")) {
-			System.out.println(line);
-		
+		for(int i = 0; i < line.size(); i++) {
+			
+			if(line.get(i).contains("move")) {
+				// move the character
+			} else if(!line.get(i).contains("move")) {
+				// output the string
+				
+			}
+			System.out.println(line.get(i));
 		}
 	}
 		

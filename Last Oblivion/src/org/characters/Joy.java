@@ -31,7 +31,7 @@ public class Joy implements Collidable, Talkable, Scriptable {
 	Animation joy, joyUp, joyUp2, joyDown, joyDown2, joyLeft, joyLeft2, joyRight, joyRight2;
 	
 	// while colliding 
-	String[] joyText = {"There you are, Ray!", "Wow, so you really meant that you were pulling an all-nighter "
+	String[] joyText = {"Wow, so you really meant that you were pulling an all-nighter "
 			+ "\nstudying the final exam for the Elif Guard."};
 	
 	// while NOT colliding
@@ -39,6 +39,7 @@ public class Joy implements Collidable, Talkable, Scriptable {
 	
 	public Joy() throws SlickException {
 		joyFaceSet = new Image("res/characters/facesets/joyFaceset.png");
+		
 		
 		Image[] walkUpJoy = { new Image("res/characters/joyBack.png"), new Image("res/characters/joyBack.png") };
 		Image[] walkUpJoy2 = { new Image("res/characters/joyBack2.png"), new Image("res/characters/joyBack2.png") };
@@ -76,8 +77,8 @@ public class Joy implements Collidable, Talkable, Scriptable {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) {
-		move(200, 200, "down", .1f, delta);
-		move(800, 200, "right", .1f, delta);
+		// move(200, 200, "down", .1f, delta);
+		// move(800, 200, "right", .1f, delta);
 		
 		
 	}
@@ -154,6 +155,12 @@ public class Joy implements Collidable, Talkable, Scriptable {
 	public boolean isScriptable() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String talk(String text) {
+		// TODO Auto-generated method stub
+		return text;
 	}
 	
 

@@ -1,5 +1,6 @@
 package org.kingdom.earth;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.characters.Lily;
@@ -9,8 +10,10 @@ import org.characters.Joy;
 
 import javagame.Collidable;
 import javagame.TextBox;
+import javagame.TextParser;
 import javagame.PlayMenu;
 import javagame.RayTalk;
+import javagame.Scriptable;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -19,6 +22,9 @@ public class ElifLibrary extends BasicGameState {
 	
 	Ray rayObject;
 	Joy joyObject;
+	
+	TextParser tp;
+	
 	Image map;
 	
 	TextBox tb;
@@ -26,6 +32,7 @@ public class ElifLibrary extends BasicGameState {
 	PlayMenu playMenu;
 	
 	ArrayList<Collidable> objectsColide;
+	ArrayList<Scriptable> scriptables2;
 	
 	RayTalk rayTalk;
 	
@@ -41,7 +48,20 @@ public class ElifLibrary extends BasicGameState {
 		joyObject = new Joy();
 		tb = new TextBox();
 		playMenu = new PlayMenu();
+		
+		try {
+			tp = new TextParser();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		objectsColide = new ArrayList<Collidable>();
+		objectsColide.add(joyObject);
+		
+		scriptables2 = new ArrayList<Scriptable>();
+		scriptables2.add(joyObject);
+	
 		
 		map = new Image("res/elifLibrary.bmp");
 		
@@ -59,6 +79,7 @@ public class ElifLibrary extends BasicGameState {
 		joyObject.render(gc, sbg, g);
 		// rayObject.hero = rayObject.heroRight;
 		tb.render(gc, sbg, g);
+		playMenu.render(gc, sbg, g); // renders the play menu
 		
 		
 		joyObject.setMapOffset(rayObject.bgOffSetX, rayObject.bgOffSetY);
@@ -73,16 +94,24 @@ public class ElifLibrary extends BasicGameState {
 		deltaVal = delta;
 		
 		rayObject.update(gc, sbg, delta, objectsColide, tb, playMenu);
-		// joyObject.move(200, 200, "down", 0.87f, delta);
+	
 		joyObject.update(gc, sbg, delta);
+		
+		
+		try {
+			tp.update(gc, sbg, delta, tb, playMenu, scriptables2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 
 		rayObject.heroPosX = 860;
 		rayObject.heroPosY = 100;
 		
 
-		tb.setOffSetX(rayObject.heroPosX + 25);
-	    tb.setOffSetY(rayObject.heroPosY + 50);
+		tb.setOffSetX(rayObject.heroPosX - 210);
+	    tb.setOffSetY(rayObject.heroPosY + 80);
 	    
 		
 	}

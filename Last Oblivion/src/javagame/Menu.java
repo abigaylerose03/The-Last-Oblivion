@@ -25,11 +25,11 @@ public class Menu extends BasicGameState {
 		exitGame = new Image("res/exitNow.png");
 		
 		music = new Music("res/music/testMusic.ogg");
-		// music.setVolume(0.2f);
+		music.setVolume(0.2f);
 		
-		// if(!music.playing() && sbg.getCurrentStateID() == 0) {
-		// 	music.play();
-		// } 
+		if(!music.playing() && sbg.getCurrentStateID() == 0) {
+			music.play();
+		} 
 		
 	}
 

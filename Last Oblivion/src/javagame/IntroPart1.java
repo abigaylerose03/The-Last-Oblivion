@@ -25,7 +25,7 @@ public class IntroPart1 extends BasicGameState {
 	
 	Music introMusic;
 	
-	int sum;
+	// int sum;
 	
 	public IntroPart1(int state) {
 		
@@ -67,7 +67,7 @@ public class IntroPart1 extends BasicGameState {
         g.setColor(new Color(255, 255, 255, alphaPercent));
     
         ttf.drawString(250, 250, currentText);
-        g.drawString(Integer.toString(sum), 100, 100);
+     // g.drawString(Integer.toString(sum), 100, 100);
         
 		
 	}
@@ -76,7 +76,7 @@ public class IntroPart1 extends BasicGameState {
 			for(int i = 0; i < begin.size(); i++) {
 				if (fade) {
 			        timer += delta;
-			        sum = i;
+			        
 			    
 			         if (timer > timerLast) {
 			        	currentText = begin.get(i);
@@ -97,7 +97,7 @@ public class IntroPart1 extends BasicGameState {
 			         
 			         }
 			         
-			         if(sum == 6) {
+			         if(i == 6 || i == 8) { // fade to starting screen if the index equals 6 or 8
 			        	 fade = !fade;
 			        	 sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
 			         }
